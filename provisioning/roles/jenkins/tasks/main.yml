@@ -1,0 +1,30 @@
+# Jenkins installer
+
+
+ - name: Set Jenkins key
+   apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+
+ - name: Set debian package
+   lineinfile: dest=/etc/apt/sources.list line="deb http://pkg.jenkins-ci.org/debian binary/"
+
+ - name: Update packagelist
+   apt: update_cache=yes
+
+ - name: Install Jenkins
+   apt: pkg=jenkins state=latest
+
+ - name: Download jenkins plugins
+   get_url: url=https://updates.jenkins-ci.org/latest/{{ item }} dest=/var/lib/jenkins/plugins/{{ item }} force=yes
+   with_items:
+      - git.hpi
+      - robot.hpi
+#      - https://updates.jenkins-ci.org/latest/ruby.hpi
+#      - https://updates.jenkins-ci.org/latest/ruby-runtime.hpi
+#      - https://updates.jenkins-ci.org/latest/rubyMetrics.hpi
+#      - https://updates.jenkins-ci.org/latest/rake.hpi
+#      - https://updates.jenkins-ci.org/latest/token-macro.hpi
+#      - https://updates.jenkins-ci.org/latest/rvm.hpi
+
+ - name: Give plugins to jenkins
+   shell: chown jenkins:jenkins /var/lib/jenkins/plugins/*
+   notify: Restart Jenkins

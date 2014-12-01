@@ -1,0 +1,17 @@
+# Install python
+
+ - name: Install python 2.7
+   apt: pkg=python2.7 state=latest
+
+ - name: Install pip
+   apt: pkg=python-pip state=latest
+
+
+ - name: Install virtualenv
+   pip:  name={{ item }} state=latest
+   with_items:
+      - virtualenv
+      - virtualenvwrapper
+
+ - name: Set virtualenv bashrc
+   lineinfile: dest=/home/vagrant/.bashrc line=". /usr/local/bin/virtualenvwrapper.sh"

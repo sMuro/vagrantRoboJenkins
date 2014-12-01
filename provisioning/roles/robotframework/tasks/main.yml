@@ -1,0 +1,10 @@
+# Install robotframework with necessary components
+
+ - name: Install RobotFramework and Selenium components
+   pip:  name={{ item }} state=latest
+   with_items:
+      - robotframework
+      - selenium
+      - robotframework-selenium2library
+      - decorator
+      - docutils

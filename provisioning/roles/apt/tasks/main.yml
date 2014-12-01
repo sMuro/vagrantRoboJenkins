@@ -1,0 +1,4 @@
+# Update apt packages
+
+ - name: Update apt packages cache
+   action: apt update_cache=yes

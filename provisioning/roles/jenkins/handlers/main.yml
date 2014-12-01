@@ -1,0 +1,7 @@
+#Jenkins handlers
+
+ - name: Restart Jenkins
+   sudo: yes
+   service:
+      name: jenkins
+      state: restarted

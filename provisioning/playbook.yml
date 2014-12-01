@@ -1,0 +1,15 @@
+ - hosts: all
+   sudo: yes
+   roles:
+      - apt
+      - base
+      - apache
+      - mysql
+
+ - hosts: all
+   sudo: yes
+   roles:
+      - java
+      - python
+      - robotframework
+      - jenkins
